@@ -434,6 +434,131 @@ $$
 
 Выражения для первой производной совпадают, а для второй производной -- отличаются незначительно, причем полное совпадение будет, если учесть, что $ x^T = x $ для \emph{скалярной} величины $ x $.
 
+\section{Производные от векторной функции векторного аргумента}
+
+Пусть задан столбец
+$$
+f(x) =
+\begin{pmatrix}
+	f_1(x_1, \ldots, x_n)\\
+	\vdots \\
+	f_n(x_1, \ldots, x_n)
+\end{pmatrix}
+$$
+функций нескольких переменных (говорят, что задана \emph{вектор-функция векторного аргумента}).
+
+Первый дифференциал вектор-функции имеет вид
+\begin{align*}
+	df(x) =
+	\begin{pmatrix}
+		df_1(x_1, \ldots, x_n) \\
+		\vdots \\
+		df_m(x_1, \ldots, x_n)
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		\sum\limits_{j=1}^{n} \dfrac{\partial f_1(x_1, \ldots, x_n)}{\partial x_j} \, dx_j\\
+		\vdots \\
+		\sum\limits_{j=1}^{n} \dfrac{\partial f_m(x_1, \ldots, x_n)}{\partial x_j} \, dx_j
+	\end{pmatrix} = \sum_{j=1}^{n}
+    \begin{pmatrix}
+    	\dfrac{\partial f_1(x)}{\partial x_j} \\
+    	\vdots \\
+    	\dfrac{\partial f_m(x)}{\partial x_j} 
+    \end{pmatrix}
+    dx_j
+\end{align*}
+
+Обозначим через
+\begin{align*}
+	\dfrac{df(x)}{dx} =
+	\begin{pmatrix}
+		\dfrac{\partial f_1(x)}{\partial x_1} & \ldots & \dfrac{\partial f_1(x)}{\partial x_n} \\
+		\vdots & \ddots & \vdots \\
+		\dfrac{\partial f_m(x)}{\partial x_1} & \ldots & \dfrac{\partial f_m(x)}{\partial x_n}
+	\end{pmatrix} =
+    \Bigg[ \dfrac{\partial f_i(x)}{\partial x_j} \Bigg]_{i,j=1}^{m, n}
+\end{align*}
+матрицу частных производных первого порядка заданных функций (\emph{матрицу Якоби}).
+
+Тогда выражение для первого дифференциала можно записать в виде $ df(x) = \dfrac{df(x)}{dx} dx $, т.е. $ \dfrac{df(x)}{dx} $ -- производная вектор-функции векторного аргумента.
+
+Как и в случае с аргументом $ x $, упорядоченный набор функций можно считать не матрицей-столбцом, а матрицей-строкой $ (f(x))^T $. Этот случай сводится к предыдущему, учитывая, что операции дифференциирования и транспонирования можно выполнять в любом порядке, так как $ d(f^T) = (df)^T $. Тогда из равенства $ df = \dfrac{df}{dx}dx $ получаем $ df^T = (dx)^T \Big( \dfrac{df}{dx} \Big)^T = (dx)^T \dfrac{df^T}{dx^T} $, где
+\begin{align*}
+	\Big( \dfrac{df(x)}{dx}\Big)^T = \dfrac{df^T}{dx^T} =
+	\begin{pmatrix}
+		\dfrac{\partial f_1(t)}{\partial x_1} & \ldots & \dfrac{\partial f_m(x)}{\partial x_1} \\
+		\vdots & \ddots & \vdots \\
+		\dfrac{\partial f_1(x)}{\partial x_n} & \ldots & \dfrac{\partial f_m(x)}{\partial x_n}
+	\end{pmatrix}
+\end{align*}
+-- транспонированная матрица Якоби вектор-функции векторного аргумента.
+
+\section{Правила дифференциирования по векторному аргументу}
+
+Векторный аргумент $ x $, его приращение $ dx $ считаем вектор-столбцами размеров $ n \times 1 $.
+
+Первый дифференциал скалярной функции векторного аргумента $ f(x_1, \ldots, x_n) $ (одноэлементная матрица) имеет вид
+\begin{align*}
+	df = \dfrac{df}{dx} \, dx = dx^T \, \dfrac{df}{dx^T},
+\end{align*}
+где $ \dfrac{df}{dx} = \Big( \dfrac{df}{dx_1} \ldots \dfrac{df}{dx_n} \Big) $ -- градиент функции, а $ \Big( \dfrac{df}{dx} \Big)^T = \dfrac{df}{dx^T} $, так как функция скалярная.
+
+Второй дифференциал скалярной функции векторного аргумента $ f(x_1, \ldots, x_n) $
+\begin{align*}
+	d^2 f = dx^T \dfrac{d^2 f}{dx^T dx} dx,
+\end{align*}
+где $ \dfrac{d^2 f}{dx^T dx} = \Bigg[ \dfrac{\partial^2 f(x)}{\partial x_i \partial x_j} \Bigg]_{i,j=1}^{n} $ -- матрица Гессе.
+
+Первый дифференциал вектор-функции векторного аргумента (вектора-столбца) $ f(x) $ имеет вид
+\begin{align*}
+	df = \dfrac{df(x)}{dx} dx,
+\end{align*}
+где $ \dfrac{df(x)}{dx} $ -- матрица Якоби.
+
+Первый дифференциал вектора-строки
+\begin{align*}
+	(df)^T = d(f^T) = dx^T \dfrac{df^T}{dx^T}.
+\end{align*}
+
+В частном случае, когда $ f(x_1, \ldots, x_n) = (x_1, \ldots, x_n) $, получаем
+\begin{align*}
+	\dfrac{dx}{dx} = E, \quad \dfrac{dx^T}{dx^T} = E,
+\end{align*}
+где $ E $ -- единичная матрица $ n $-ого порядка.
+
+Числовую матрицу $ C $ соответствующих размеров можно выносить за знак производной
+\begin{align*}
+	\dfrac{d(Cf)}{dx} = C \, \dfrac{df}{dx}, \quad \dfrac{d(f^T C)}{dx^T} = \dfrac{df^T}{dx^T} \, C
+\end{align*}
+
+Производные суммы, разности и произведения вектор-функций векторного аргумента $ u(x) $ и $ v(x) $ одинаковых размеров $ m \times 1 $
+\begin{align*}
+	\dfrac{d(u + v)}{dx} = \dfrac{du}{dx} + \dfrac{dv}{dx}, \quad \dfrac{d(u - v)}{dx} = \dfrac{du}{dx} - \dfrac{dv}{dx}, \\
+	\dfrac{d(u^T v)}{dx} = u^T \dfrac{dv}{dx} + v^T \dfrac{du}{dx}, \quad \dfrac{d(u^T v)}{dx^T} = \dfrac{du^T}{dx^T} v + \dfrac{d v^T}{dx^T} u.
+\end{align*}
+
+Производная сложной функции $ z(y(x)) $, где $
+z = z(y) = 
+\begin{pmatrix}
+	z_1(y) \\
+	\vdots \\
+	z_k(y)
+\end{pmatrix}
+$ и $
+y = y(x) = 
+\begin{pmatrix}
+	y_1(x) \\
+	\vdots \\
+	y_m(x)
+\end{pmatrix}
+$, вычисляется по формуле $ \dfrac{dz(y(x))}{dx} = \dfrac{dz(y(x))}{dy} \, \dfrac{dy(x)}{dx} $ или, опуская аргументы, $ \dfrac{dz}{dx} = \underset{k \times m}{\dfrac{dz}{dy}} \, \underset{m \times n}{\dfrac{dy}{dx}} $.
+
+След матрицы Якоби (при $ m = n $) определяет \emph{дивергенцию}
+\begin{align*}
+	\divv f = \tr \dfrac{df}{dx} = \sum_{i=1}^n \dfrac{\partial f_i}{\partial x_i},
+\end{align*}
+где $ f(x) $ -- векторная функция векторного аргумента.
 
 
 % Источники в "Газовой промышленности" нумеруются по мере упоминания 
