@@ -356,6 +356,86 @@ $$
 где $ A_{ij}(t) $ -- алгебраическое дополнение элемента $ a_{ij}(t) $ матрицы $ A(t) $; $ A^{+}(t) $ -- присоединенная матрица.
 
 
+\section{Производные скалярной функции по векторному аргументу}
+
+Рассмотрим скалярную (числовую) функцию нескольких переменных $ f(x_1, x_2, \ldots, x_n) $. Упорядоченный набор переменных $ x_1, x_2, \ldots, x_n $ будем называть \emph{векторным аргументом} этой функции.
+
+\emph{Первый дифференциал} функции $ f(x) = f(x_1, x_2, \ldots, x_n) $ имеет вид
+\begin{align*}
+	df(x) = \dfrac{ \partial f(x) }{ \partial x_1 } dx_1 + \dfrac{ \partial f(x) }{ \partial x_2 } dx_2 + \ldots + \dfrac{ \partial f(x) }{ \partial x_n } dx_n.
+\end{align*}
+
+Сумму в правой части можно представить как произведение строки $ \dfrac{ df(x) }{dx} = \Big( \dfrac{\partial f(x)}{\partial x_1} \ldots \dfrac{\partial f(x)}{\partial x_n} \Big) $ на столбец $ dx = (dx_1 \ldots dx_n)^T $, либо как произведение строки $ dx^T $ на столбец $ dx = \dfrac{ df(x) }{dx^T} = \Big( \dfrac{df(x)}{dx} \Big)^T $.
+
+Так как первый дифференциал $ \underset{1 \times 1}{df(x)} $ -- это одноэлементная матрица (а одноэлементая матрица совпадает со своей транспонированной), то $ \underset{1 \times 1}{df(x)} = \big(\underset{1 \times 1}{df(x)}\big)^T $
+\begin{align*}
+	\underset{1 \times 1}{df(x)} = \underset{1 \times n}{\dfrac{ df(x) }{ dx }} \, 
+	\underset{n \times 1}{dx} = \Big( \dfrac{ df(x) }{dx} dx \Big)^T = dx^T \Big(\dfrac{df(x)}{dx}\Big)^T = \underset{1 \times n}{dx}^T \, \underset{n \times 1}{\dfrac{ df(x) }{dx^T}}.
+\end{align*}
+
+\emph{Второй дифференциал} функции имеет вид
+\begin{align*}
+	d^2f(x) = \sum_{i=1}^{n}\sum_{j=1}^{n} \dfrac{ \partial^2 f(x) }{ \partial x_i \partial x_j } dx_i dx_j.
+\end{align*}
+
+Обозначим через $ \dfrac{d^2 f(x)}{dx^T dx} = \Big[ \dfrac{ \partial^2 f(x) }{ \partial x_i^2 \partial x_j^2 } \Big]_{i,j=1}^{n} $ квадратную матрицу частных производных второго порядка (\emph{матрицу Гессе}). Определитель матрицы Гессе называется \emph{гессианом}.
+
+Тогда можно переписать
+\begin{align*}
+	\underset{1 \times 1}{d^2 f(x)} = \underset{1 \times n}{dx}^T \, \underset{n \times n}{\dfrac{ d^2 f(x) }{ dx^T dx }} \, \underset{n \times 1}{dx}.
+\end{align*}
+
+Для скалярной функции скалярного аргумента второй дифференциал будет иметь вид
+\begin{align*}
+	d^2 f(x) = \dfrac{d^2f(x)}{dx^2}dx^2.
+\end{align*}
+
+Для записи производных можно использовать символические векторы (столбцы или строки)
+\begin{align*}
+	\nabla = \dfrac{d}{dx} = \Big( \dfrac{\partial}{\partial x_1} \ldots \dfrac{\partial}{\partial x_n} \Big), \quad \nabla^T = \dfrac{d}{dx^T} =
+	\begin{pmatrix}
+		\dfrac{\partial}{\partial x_1} \\
+		\vdots\\
+		\dfrac{\partial}{\partial x_n}
+	\end{pmatrix}.
+\end{align*}
+
+При этом дифференциирование функции формально записывается как как умножение функции на символический вектор производных. Например, градиент функции есть произведение вектора $ \nabla $ на функцию $ f(x) $
+\begin{align*}
+	\nabla f(x_1, \ldots, x_n) = \Big( \dfrac{ \partial f }{ \partial x_1 } \ldots \dfrac{ \partial f }{ \partial x_n }  \Big), \\
+	\underset{n \times 1}{\nabla}^T \underset{1 \times n }{\nabla} =
+	\begin{pmatrix}
+		\dfrac{ \partial }{ \partial x_1 }\\
+		\ldots \\
+		\dfrac{ \partial }{ \partial x_n }
+	\end{pmatrix}
+    \Big( \dfrac{\partial}{\partial x_1} \ldots \dfrac{\partial}{\partial x_n} \Big) = \Bigg[ \dfrac{\partial^2}{\partial x_i \partial x_j} \Bigg]_{i, j=1}^n.
+\end{align*}
+
+Найти первую и вторую производные сложной функции $ g(t) = f(x_1(t), \ldots, x_n(t)) $, применяя матричные обозначения.
+
+Находим производные функции, заменяя суммирование операциями умножения соответствующих матриц. Первая производная
+\begin{align*}
+	\dfrac{ d g(t) }{ dt } = \dfrac{d}{dt} \Big( f(x_1(t), \ldots, x_n(t))) \Big) = \sum_{i=1}^{n} \dfrac{\partial f(x(t))}{\partial x_i} \cdot \dfrac{ d x_i(t) }{dt} = \dfrac{df(x(t))}{dx} \cdot \dfrac{dx(t)}{dt}
+\end{align*}
+
+В случае скалярной функции скалярного аргумента первая производная от функции $ g(x) $ будет выглядеть так же.
+
+Вторая производная скалярной функции векторного аргумента
+\begin{multline*}
+  \dfrac{d^2 g(t)}{dt^2} = \sum_{j=1}^{n} \sum_{i=1}^{n} \dfrac{ \partial^2 f(x(t)) }{ \partial x_j \partial x_i } \cdot \dfrac{ d x_i(t) }{ dt } \cdot \dfrac{ d x_j(t) }{dt} + \sum_{i=1}^n \dfrac{ \partial f(x(t)) }{\partial x_i} \cdot \dfrac{d x_i^2}{d t^2} = \ldots \\
+  \ldots = \Big( \dfrac{d x(t)}{dt} \Big)^T \dfrac{ d^2 f(x(t)) }{ dx^T dx } \cdot \dfrac{dx(t)}{dt} + \dfrac{df(x(t))}{dx} \cdot \dfrac{d^2 x(t)}{dt^2}.
+\end{multline*}
+
+В случае скалярной функции скалярного аргумента вторая производная будет выглядеть так
+\begin{align*}
+  \dfrac{d^2 g(t)}{d t^2} = \dfrac{ d^2 f(x(t)) }{dx^2} \Big( \dfrac{dx(t)}{dt} \Big)^2 + \dfrac{ df(x(t)) }{dx} \cdot \dfrac{ d^2 x(t) }{dt^2}.
+\end{align*}
+
+Выражения для первой производной совпадают, а для второй производной -- отличаются незначительно, причем полное совпадение будет, если учесть, что $ x^T = x $ для \emph{скалярной} величины $ x $.
+
+
+
 % Источники в "Газовой промышленности" нумеруются по мере упоминания 
 \begin{thebibliography}{99}\addcontentsline{toc}{section}{Список литературы}
 	\bibitem{bortakovskiy:2005}{\emph{Бортаковский А.С.} Линейная алгебра в примерах и задачах. -- М.: Высш. шк., 2005. -- 591~с.}
